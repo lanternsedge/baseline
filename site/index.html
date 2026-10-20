@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baseline Tennis</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Baseline">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#F4EFE1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1F17" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: sticky masthead with tour tabs; each tab is one view of feature + list grids that stack on narrow screens */
+:root{
+  --bg:#F4EFE1; --surface:#FBF8EF; --fg:#1B2A22; --muted:#4F5B53; --rule:#D9D2BE;
+  --green:#1F4D36; --court:#2F6B47; --purple:#5B3A8C; --purple-soft:#E3D9F2; --ball:#D9E021;
+  --on-green:#F4EFE1; --live:#B3261E; --notice:#FFF3C4;
+  --display:'Playfair Display', Georgia, 'Times New Roman', serif;
+  --body:'Source Sans 3', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root{
+  --bg:#0F1F17; --surface:#16291F; --fg:#EDE7D6; --muted:#B4BCAE; --rule:#2C4236;
+  --green:#9FD3AE; --court:#24543A; --purple:#C7B2EC; --purple-soft:#2E2442;
+  --on-green:#0F1F17; --live:#FF8A80; --notice:#3A3418; color-scheme:dark } }
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);margin:0}
+body{color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+a:focus-visible,button:focus-visible{outline:3px solid var(--purple);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(24px, env(safe-area-inset-left));padding-right:max(24px, env(safe-area-inset-right))}
+[hidden]{display:none!important}
+
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.mast{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px 6px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{width:36px;height:36px;border-radius:9px}
+.logo b{font-family:var(--display);font-weight:700;font-size:28px;color:var(--green)}
+.right{display:flex;align-items:center;gap:12px}
+.updated{font-size:14px;color:var(--muted)}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--rule);background:var(--surface);color:var(--green);cursor:pointer}
+.icon-btn.spin svg{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-bottom:-1px}
+nav::-webkit-scrollbar{display:none}
+nav button{font:600 16px var(--body);color:var(--fg);background:none;border:0;border-bottom:3px solid transparent;padding:12px 14px;min-height:48px;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{color:var(--purple);border-bottom-color:var(--purple)}
+
+main{padding-block:28px calc(64px + env(safe-area-inset-bottom))}
+.view{display:flex;flex-direction:column;gap:32px}
+h2{font-family:var(--display);font-weight:700;font-size:26px;color:var(--green);margin:0;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple)}
+.meta{font-size:14px;color:var(--muted)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:8px;border-bottom:2px solid var(--green)}
+.empty{padding:24px;border:1px dashed var(--rule);border-radius:6px;color:var(--muted)}
+
+.court{position:relative;background:var(--court);overflow:hidden}
+.court i{position:absolute;border:3px solid rgba(244,239,225,.7)}
+.court .o{left:7%;right:7%;top:12%;bottom:12%}
+.court .s{left:22%;right:22%;top:12%;bottom:12%;border-top:0;border-bottom:0}
+.court .n{left:50%;top:12%;bottom:12%;width:0;border-width:0 0 0 3px}
+.court .t{left:22%;right:22%;top:50%;height:0;border-width:3px 0 0 0}
+.court .b{position:absolute;width:12%;aspect-ratio:1;border-radius:50%;background:#D9E021;right:14%;top:20%;box-shadow:0 6px 12px rgba(0,0,0,.3);border:0}
+.play{position:absolute;left:50%;top:50%;width:56px;height:56px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(244,239,225,.95);display:flex;align-items:center;justify-content:center}
+.media{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--court)}
+.media img{width:100%;height:100%;object-fit:cover}
+.media > .court{position:absolute;inset:0}
+
+.lead{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:32px}
+.feature{display:block;border-radius:6px;overflow:hidden;background:var(--surface);border:1px solid var(--rule)}
+.feature .txt{padding:20px 24px 24px;display:flex;flex-direction:column;gap:6px}
+.feature h3{font-size:30px;line-height:1.15}
+.feature p{margin:4px 0 0;color:var(--muted);font-size:16px;max-width:65ch}
+.list{display:flex;flex-direction:column}
+.list > a{display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.list > a:first-child{padding-top:0}
+.list > a:last-child{border-bottom:0}
+.list h3{font-size:20px;line-height:1.25}
+.list > a.tip{flex-direction:row;padding:14px;border:1px solid var(--rule)}
+.list > a.tip h3{font-size:17px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{display:flex;flex-direction:column;gap:6px;padding:18px;border-radius:6px;background:var(--surface);border:1px solid var(--rule);min-width:0}
+.card h3{font-size:18px;line-height:1.3}
+a.card:hover,.feature:hover h3,.list > a:hover h3,a.tip:hover h3{color:var(--purple)}
+.ext::after{content:" ↗";font-size:.85em}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{font:600 15px var(--body);padding:10px 16px;min-height:44px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--fg);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--green);color:var(--on-green);border-color:var(--green)}
+.tips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tip{display:flex;gap:14px;align-items:center;padding:14px;border-radius:6px;background:var(--surface);border:1px solid var(--rule);min-width:0}
+.tip .thumb{width:128px;flex:none;border-radius:5px;aspect-ratio:16/9}
+.tip .thumb .play{width:34px;height:34px}
+.tip .thumb .play svg{width:16px;height:16px}
+.tip .doc{background:var(--purple-soft);display:flex;align-items:center;justify-content:center;color:var(--purple)}
+.tip h3{font-size:17px;line-height:1.25}
+.tip .body{min-width:0;display:flex;flex-direction:column;gap:3px}
+.new{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:var(--ball);color:#1B2A22;font-size:11px;letter-spacing:.06em}
+.note{font-size:14px;color:var(--muted);max-width:65ch;margin:0}
+
+.sched{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px;align-items:start}
+.panel{padding:20px;border-radius:6px;background:var(--surface);border:1px solid var(--rule);display:flex;flex-direction:column;gap:12px;min-width:0}
+.event{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 12px;margin:0 -12px;border-radius:6px;cursor:pointer;border:0;background:none;text-align:left;font:inherit;color:inherit;width:calc(100% + 24px)}
+.event[aria-pressed="true"]{background:var(--purple-soft)}
+.event h3{font-size:19px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:4px;background:var(--purple-soft);color:var(--purple)}
+.event[aria-pressed="true"] .tag{background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 18px;border-radius:999px;font:600 15px var(--body);border:1px solid var(--purple);color:var(--purple);background:none;white-space:nowrap;cursor:pointer}
+.btn.solid{background:var(--purple);color:var(--bg)}
+.btn.small{min-height:40px;padding:0 14px;font-size:14px}
+.court-name{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);padding:14px 0 6px;border-bottom:2px solid var(--green)}
+.match{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule)}
+.status{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.live{display:inline-block;padding:3px 8px;border-radius:4px;background:var(--live);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em}
+@media (prefers-color-scheme: dark){ .live{color:#0F1F17} }
+.players{display:flex;flex-direction:column;gap:4px;min-width:0}
+.pl{display:flex;justify-content:space-between;gap:12px;font-size:16px}
+.pl span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl.win{font-weight:700}
+.sets{font-variant-numeric:tabular-nums;letter-spacing:.08em;white-space:nowrap}
+.sets sup{font-size:10px;letter-spacing:0}
+.watch{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 16px;align-items:center}
+.notice{padding:12px 14px;border-radius:6px;background:var(--notice);font-size:15px}
+.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;margin-top:32px}
+
+@media (max-width:820px){
+  .lead,.sched{grid-template-columns:minmax(0,1fr)}
+  .grid3,.tips{grid-template-columns:minmax(0,1fr)}
+  .feature h3{font-size:24px}
+  .updated{display:none}
+}
+@media (prefers-reduced-motion:no-preference){ .view{animation:fade .2s ease} @keyframes fade{from{opacity:.5}to{opacity:1}} }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="mast">
+      <div class="logo"><img src="apple-touch-icon.png" alt="" width="36" height="36"><b>Baseline</b></div>
+      <div class="right">
+        <span class="updated" id="updated"></span>
+        <button class="icon-btn" id="refresh" type="button" aria-label="Refresh">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v4h-4"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav role="tablist" aria-label="Sections" id="tabs"></nav>
+  </div>
+</header>
+<main class="wrap" id="main"><p class="meta">Loading the latest tennis…</p></main>
+
+<script>
+'use strict';
+const D = { news:null, videos:null, espn:null, cal:null, lib:null, status:null };
+const PLAY = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#1F4D36"/></svg>';
+const DOC = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 3h10l4 4v14H5z"/><path d="M9 11h6M9 15h6M9 19h3"/></svg>';
+const courtInner = (ball=true, play=false) => `<i class="o"></i><i class="s"></i><i class="n"></i><i class="t"></i>${ball?'<i class="b"></i>':''}${play?`<span class="play">${PLAY}</span>`:''}`;
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safeUrl = u => /^https?:\/\//i.test(u || '') ? esc(u) : '#';
+const A = (u, inner, cls='') => `<a href="${safeUrl(u)}" target="_blank" rel="noopener" class="${cls}">${inner}</a>`;
+const DAY = 864e5;
+const ago = iso => {
+  const t = Date.parse(iso); if (!t) return '';
+  const m = Math.round((Date.now() - t) / 6e4);
+  if (m < 60) return Math.max(m,1) + 'm ago';
+  if (m < 1440) return Math.round(m/60) + 'h ago';
+  return new Date(t).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+};
+const ytId = u => (String(u).match(/[?&]v=([\w-]{11})/) || [])[1];
+const media = (img, play=false) => `<div class="media">${img ? `<div class="court">${courtInner(false)}</div><img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">${play?`<span class="play">${PLAY}</span>`:''}` : `<div class="court">${courtInner(!play, play)}</div>`}</div>`;
+const tourLabel = n => n.tour === 'TOUR' ? 'Tennis' : n.tour;
+
+async function loadJSON(name){
+  try { const r = await fetch('data/' + name + '?t=' + Date.now(), {cache:'no-store'}); if (!r.ok) throw 0; return await r.json(); }
+  catch { return null; }
+}
+async function loadAll(){
+  const [news, videos, espn, cal, lib] = await Promise.all(['news.json','videos.json','espn.json','calendar.json','library.json'].map(loadJSON));
+  Object.assign(D, {news, videos, espn, cal, lib});
+}
+
+/* ---------- News ---------- */
+function newsView(items, title){
+  if (!items.length) return `<section class="view"><div class="empty">No ${esc(title)} stories in the last few days. Check back soon.</div></section>`;
+  const f = items.find(n => n.image) || items[0];
+  const rest = items.filter(n => n !== f);
+  const side = rest.slice(0,3), more = rest.slice(3,30);
+  const line = n => `<span class="meta ext">${esc(n.source)} · ${ago(n.date)}</span>`;
+  return `<section class="view">
+   <div class="lead">
+    ${A(f.link, `${media(f.image)}<div class="txt"><span class="eyebrow">${esc(title)} · ${esc(tourLabel(f))}</span><h3>${esc(f.title)}</h3>${f.desc?`<p>${esc(f.desc.slice(0,180))}${f.desc.length>180?'…':''}</p>`:''}${line(f)}</div>`, 'feature')}
+    <div class="list">${side.map(n => A(n.link, `<span class="eyebrow">${esc(tourLabel(n))}</span><h3>${esc(n.title)}</h3>${line(n)}`)).join('')}</div>
+   </div>
+   ${more.length ? `<div class="section-head"><h2>More headlines</h2></div>
+   <div class="grid3">${more.map(n => A(n.link, `<span class="eyebrow">${esc(tourLabel(n))}</span><h3>${esc(n.title)}</h3>${line(n)}`, 'card')).join('')}</div>` : ''}
+  </section>`;
+}
+const newsItems = () => D.news?.items || [];
+function slamsView(){
+  const items = newsItems().filter(n => n.slam);
+  const majors = D.lib?.majors || [];
+  return `<section class="view">
+    ${items.length ? newsView(items, 'Grand Slams').replace(/^<section class="view">/,'<div class="view">').replace(/<\/section>\s*$/,'</div>') : '<div class="empty">No Grand Slam news this week. The next major is the Australian Open in January.</div>'}
+    <div class="section-head"><h2>The four majors</h2></div>
+    <div class="tips">${majors.map(s => A(s.url, `<div class="thumb court">${courtInner(false)}</div><div class="body"><span class="eyebrow">${esc(s.when)}</span><h3>${esc(s.name)}</h3><span class="meta ext">${esc(s.where)}</span></div>`, 'tip')).join('')}</div>
+  </section>`;
+}
+
+/* ---------- Pro Tips ---------- */
+const CATS = ['Technique','Training','Injury Prevention','Rehab','Fitness & Recovery'];
+let tipCat = 'Today’s Picks';
+const dayNo = Math.floor((Date.now() - new Date().getTimezoneOffset()*6e4) / DAY);
+function freshFor(cat){
+  const now = Date.now();
+  return (D.videos?.items || []).filter(v => v.cat === cat && now - Date.parse(v.date) < 45*DAY)
+    .map(v => ({...v, score: (v.views||0) / Math.sqrt((now - Date.parse(v.date))/DAY + 1), fresh:true}))
+    .sort((a,b) => b.score - a.score);
+}
+const libFor = cat => (D.lib?.tips || []).filter(t => t.cat === cat);
+function pickFor(cat){
+  const f = freshFor(cat).slice(0,3), l = libFor(cat);
+  if (f.length && (dayNo % 2 === 0 || !l.length)) return f[dayNo % f.length];
+  return l.length ? l[dayNo % l.length] : f[0];
+}
+function thumbOf(x){ return x.thumb || (ytId(x.link) ? `https://i.ytimg.com/vi/${ytId(x.link)}/hqdefault.jpg` : ''); }
+function tipCard(x, cat){
+  const isVid = x.kind === 'Video', th = thumbOf(x);
+  const thumb = isVid ? `<div class="thumb media">${th?`<img src="${esc(th)}" alt="" loading="lazy" onerror="this.remove()">`:`<div class="court">${courtInner(false)}</div>`}<span class="play">${PLAY}</span></div>` : `<div class="thumb doc">${DOC}</div>`;
+  const stats = x.views ? ` · ${x.views >= 1e6 ? (x.views/1e6).toFixed(1)+'M' : x.views >= 1e3 ? Math.round(x.views/1e3)+'K' : x.views} views` : '';
+  return A(x.link, `${thumb}<div class="body"><span class="eyebrow">${cat ? esc(cat)+' · ' : ''}${esc(x.kind)}${x.fresh?'<span class="new">NEW</span>':''}</span><h3>${esc(x.title)}</h3><span class="meta ext">${esc(x.source)}${stats}</span></div>`, 'tip');
+}
+function tipsView(){
+  const cats = ['Today’s Picks', ...CATS];
+  let body;
+  if (tipCat === 'Today’s Picks'){
+    const picks = CATS.map(c => [c, pickFor(c)]).filter(([,x]) => x);
+    const [fc, fx] = picks.find(([,x]) => x.kind === 'Video') || picks[0];
+    const others = picks.filter(([c]) => c !== fc);
+    body = `<div class="lead">
+      ${A(fx.link, `${media(thumbOf(fx), fx.kind==='Video')}<div class="txt"><span class="eyebrow">${esc(fc)} · ${esc(fx.kind)}${fx.fresh?'<span class="new">NEW</span>':''}</span><h3>${esc(fx.title)}</h3><span class="meta ext">${esc(fx.source)}</span></div>`, 'feature')}
+      <div class="list" style="gap:12px">${others.slice(0,2).map(([c,x]) => tipCard(x,c)).join('')}</div>
+    </div>
+    <div class="tips">${others.slice(2).map(([c,x]) => tipCard(x,c)).join('')}</div>`;
+  } else {
+    const fresh = freshFor(tipCat).slice(0,8), lib = libFor(tipCat);
+    body = (fresh.length ? `<div class="section-head"><h2>New and popular</h2><span class="meta">Recent uploads from coaching and physio channels</span></div><div class="tips">${fresh.map(x => tipCard(x)).join('')}</div>` : '')
+      + `<div class="section-head"><h2>Library</h2></div><div class="tips">${lib.map(x => tipCard(x)).join('')}</div>`;
+  }
+  return `<section class="view">
+   <div class="chips" role="group" aria-label="Pro Tips categories">${cats.map(c => `<button type="button" aria-pressed="${c===tipCat}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+   ${body}
+   <p class="note">Rehab and injury content is general information. Check with your doctor or physical therapist before starting a new program.</p>
+  </section>`;
+}
+
+/* ---------- Schedule ---------- */
+const SCORES = {ATP:'https://www.atptour.com/en/scores/current', WTA:'https://www.wtatennis.com/scores'};
+let selEvent = null, selDay = 0, liveTimer = null;
+const localDay = t => { const d = new Date(t); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); };
+const today0 = () => localDay(Date.now());
+const evStart = e => Date.parse(e.start + 'T00:00:00');
+const evEnd = e => Date.parse(e.end + 'T23:59:59');
+const tokens = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').split(/[^a-z]+/).filter(w => w.length > 3 && !['open','tennis','championships','masters','tournament','international','presented','cup'].includes(w));
+function espnFor(ev){
+  const names = new Set([...tokens(ev.name), ...tokens(ev.city), ...(ev.aliases||[]).flatMap(tokens)]);
+  return (D.espn?.events || []).find(x => x.tour === ev.tour && (!x.end || Date.parse(x.end) >= evStart(ev) - DAY) && (!x.start || Date.parse(x.start) <= evEnd(ev) + DAY)
+    && [...tokens(x.name), ...tokens(x.city)].some(w => names.has(w)));
+}
+function thisWeek(){
+  const now = Date.now();
+  return (D.cal?.events || []).filter(e => evStart(e) <= now && evEnd(e) >= now);
+}
+function upcoming(){
+  const now = Date.now();
+  return (D.cal?.events || []).filter(e => evStart(e) > now).sort((a,b) => evStart(a) - evStart(b));
+}
+function calendarDrift(){
+  // ESPN's season calendar lists an event in the next two weeks that our calendar doesn't have
+  const ours = (D.cal?.events || []);
+  const soon = Date.now() + 14*DAY;
+  for (const tour of ['ATP','WTA']) for (const x of (D.espn?.calendar?.[tour] || [])) {
+    const s = Date.parse(x.start); if (!s || s < Date.now() - DAY || s > soon) continue;
+    const tk = tokens(x.name); if (!tk.length) continue;
+    const hit = ours.some(e => e.tour === tour && Math.abs(evStart(e) - s) < 9*DAY && [...tokens(e.name), ...tokens(e.city), ...(e.aliases||[]).flatMap(tokens)].some(w => tk.includes(w)));
+    if (!hit) return x.name;
+  }
+  return null;
+}
+const fmtTime = t => new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+const fmtDate = s => new Date(s + 'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+function setsHtml(p){ return p.sets.map(s => `${s.g ?? ''}${s.tb != null ? `<sup>${s.tb}</sup>` : ''}`).join(' '); }
+function matchRow(m){
+  let st;
+  if (m.state === 'in') st = '<span class="live">LIVE</span>';
+  else if (m.completed || m.state === 'post') st = 'Final';
+  else st = m.date ? fmtTime(m.date) : esc(m.detail || '');
+  const ps = m.players.length ? m.players : [{name:'TBD',sets:[]},{name:'TBD',sets:[]}];
+  const q = encodeURIComponent(ps.map(p => p.name).join(' vs ') + ' highlights');
+  const action = (m.completed || m.state === 'post')
+    ? `<a class="btn small" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Highlights</a>`
+    : `<button class="btn small${m.state==='in'?' solid':''}" type="button" data-watch>${m.state==='in'?'Watch':'Where to watch'}</button>`;
+  return `<div class="match"><div class="status">${st}</div><div class="players">${ps.map(p => `<div class="pl${p.winner?' win':''}"><span>${esc(p.name)}${p.country?` <span class="meta">${esc(p.country)}</span>`:''}</span><span class="sets">${setsHtml(p)}</span></div>`).join('')}${m.round?`<span class="meta">${esc(m.round)}${m.state!=='in'&&m.detail&&!m.completed&&m.state!=='pre'?' · '+esc(m.detail):''}</span>`:''}</div>${action}</div>`;
+}
+function orderOfPlay(ev){
+  const x = espnFor(ev);
+  const head = `<div class="section-head" style="border:0;padding:0"><div><span class="eyebrow">Order of play</span><h2>${esc(ev.name)}</h2></div>
+    <div class="chips" role="group" aria-label="Day">${[['Yesterday',-1],['Today',0],['Tomorrow',1]].map(([l,o]) => `<button type="button" data-day="${o}" aria-pressed="${o===selDay}">${l}</button>`).join('')}</div></div>
+    <span class="meta">Times in your local time · Singles</span>`;
+  if (!x || !x.matches.length) return `<div class="panel">${head}<div class="empty">Match details for this event aren't in the score feed yet. The official page has every match.</div><div>${A(SCORES[ev.tour], ev.tour==='ATP'?'ATP Live Scores':'WTA Match Centre', 'btn solid')}</div></div>`;
+  const day = today0() + selDay*DAY;
+  const ms = x.matches.filter(m => m.date && localDay(Date.parse(m.date)) === day);
+  if (!ms.length) return `<div class="panel">${head}<div class="empty">No singles matches listed for this day.</div><div>${A(SCORES[ev.tour], 'Official scores', 'btn')}</div></div>`;
+  const courts = new Map();
+  ms.sort((a,b) => (a.state==='in'?-1:0) - (b.state==='in'?-1:0) || Date.parse(a.date) - Date.parse(b.date));
+  for (const m of ms) { const c = m.court || 'Court to be announced'; if (!courts.has(c)) courts.set(c, []); courts.get(c).push(m); }
+  return `<div class="panel">${head}${[...courts].map(([c, list]) => `<div class="court-name">${esc(c)}</div>${list.map(matchRow).join('')}`).join('')}<div style="padding-top:8px">${A(SCORES[ev.tour], 'Official scores', 'btn')}</div></div>`;
+}
+function schedView(){
+  const week = thisWeek(), next = upcoming();
+  if (!selEvent || !week.includes(selEvent)) selEvent = week.find(e => espnFor(e)) || week[0] || null;
+  const drift = calendarDrift();
+  const lc = D.cal?.lastChecked ? new Date(D.cal.lastChecked + 'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—';
+  const watch = D.lib?.watch || [];
+  const evBtn = e => `<button class="event" type="button" data-ev="${esc(e.name)}" aria-pressed="${e===selEvent}"><div><span class="tag">${esc(e.category)}</span><h3 style="margin-top:6px">${esc(e.name)}</h3><span class="meta">${esc(e.city)}, ${esc(e.country)} · ${esc(e.surface)}${espnFor(e)?'':' · official page only'}</span></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`;
+  return `<section class="view">
+   ${drift ? `<div class="notice">The calendar may be out of date: the score feed lists <strong>${esc(drift)}</strong>, which isn't in Baseline's calendar yet. It will be added at the next weekly check.</div>` : ''}
+   <div class="sched">
+    <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
+     <div class="panel">
+      <h2>This week</h2>
+      <div>${week.length ? ['ATP','WTA'].map(t => week.filter(e => e.tour===t).map(evBtn).join('')).join('') : '<div class="empty">No tour events this week.</div>'}</div>
+      <span class="meta">Calendar last checked: ${lc}</span>
+     </div>
+     <div class="panel" id="watch">
+      <h2>Where to watch in the US</h2>
+      <div class="watch">${watch.map(w => `<div><strong>${esc(w.name)}</strong><div class="meta">${esc(w.what)}</div></div>${A(w.url,'Open','btn small')}`).join('')}</div>
+      <span class="meta">TV rights change by tournament. Check the listing before match day. A subscription to the service is needed to watch.</span>
+     </div>
+    </div>
+    ${selEvent ? orderOfPlay(selEvent) : `<div class="panel"><h2>Order of play</h2><div class="empty">Nothing on court this week.</div><div style="display:flex;gap:10px;flex-wrap:wrap">${A(SCORES.ATP,'ATP Live Scores','btn solid')}${A(SCORES.WTA,'WTA Match Centre','btn solid')}</div></div>`}
+   </div>
+   <div class="section-head"><h2>Coming up</h2></div>
+   <div class="grid3">${next.slice(0,9).map(e => `<div class="card"><span class="eyebrow">${fmtDate(e.start)} – ${fmtDate(e.end)}</span><h3>${esc(e.name)}</h3><span class="meta">${esc(e.tour)} · ${esc(e.category)} · ${esc(e.city)}</span></div>`).join('') || '<div class="empty">The next season\'s calendar will appear here once it is published.</div>'}</div>
+  </section>`;
+}
+// Try ESPN directly for fresher scores while the Schedule tab is open; fall back to the cached file.
+async function liveRefresh(){
+  try {
+    const out = [];
+    for (const tour of ['atp','wta']) {
+      const r = await fetch(`https://site.api.espn.com/apis/site/v2/sports/tennis/${tour}/scoreboard`, {cache:'no-store'});
+      if (!r.ok) throw 0;
+      const j = await r.json();
+      for (const ev of j.events || []) for (const g of ev.groupings || []) for (const c of g.competitions || []) out.push([c.id, c]);
+    }
+    const byId = new Map(out);
+    for (const ev of D.espn?.events || []) for (const m of ev.matches) {
+      const c = byId.get(m.id); if (!c) continue;
+      const st = c.status?.type || {};
+      m.state = st.state || m.state; m.completed = !!st.completed; m.detail = st.shortDetail || m.detail;
+      (c.competitors||[]).sort((a,b)=>(a.order??0)-(b.order??0)).forEach((p,i) => { if (m.players[i]) { m.players[i].winner = !!p.winner; m.players[i].sets = (p.linescores||[]).map(l => ({g:l.value, tb:l.tiebreak})); } });
+    }
+    if (current === 'schedule') render(false);
+  } catch { /* the browser may not be allowed to read ESPN directly; the 30-minute cached file is used instead */ }
+}
+
+/* ---------- shell ---------- */
+const VIEWS = {
+  top:{label:'Top Stories', r:() => newsView(newsItems(), 'Top story')},
+  atp:{label:'ATP', r:() => newsView(newsItems().filter(n => n.tour==='ATP'), 'ATP')},
+  wta:{label:'WTA', r:() => newsView(newsItems().filter(n => n.tour==='WTA'), 'WTA')},
+  slams:{label:'Grand Slams', r:slamsView},
+  schedule:{label:'Schedule', r:schedView},
+  tips:{label:'Pro Tips', r:tipsView},
+};
+const tabs = document.getElementById('tabs'), main = document.getElementById('main');
+let current = (location.hash || '').slice(1);
+if (!VIEWS[current]) { try { current = localStorage.getItem('tab') || 'top'; } catch { current = 'top'; } }
+if (!VIEWS[current]) current = 'top';
+function render(top=true){
+  tabs.innerHTML = Object.entries(VIEWS).map(([k,v]) => `<button role="tab" type="button" aria-selected="${k===current}" data-k="${k}">${v.label}</button>`).join('');
+  main.innerHTML = VIEWS[current].r() + `<p class="foot">Headlines link to the original publishers. Articles open in Safari.</p>`;
+  const g = D.news?.generatedAt; document.getElementById('updated').textContent = g ? 'Updated ' + ago(g) : '';
+  if (top) window.scrollTo(0,0);
+  clearInterval(liveTimer);
+  if (current === 'schedule') { liveTimer = setInterval(liveRefresh, 60000); }
+}
+tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; current = b.dataset.k; try{localStorage.setItem('tab',current)}catch{} render(); if (current==='schedule') liveRefresh(); });
+main.addEventListener('click', e => {
+  const c = e.target.closest('button[data-cat]'); if (c) { tipCat = c.dataset.cat; render(false); return; }
+  const ev = e.target.closest('button[data-ev]'); if (ev) { selEvent = thisWeek().find(x => x.name === ev.dataset.ev); selDay = 0; render(false); return; }
+  const d = e.target.closest('button[data-day]'); if (d) { selDay = +d.dataset.day; render(false); return; }
+  if (e.target.closest('button[data-watch]')) document.getElementById('watch')?.scrollIntoView({behavior:'smooth', block:'start'});
+});
+const refreshBtn = document.getElementById('refresh');
+async function refresh(){ refreshBtn.classList.add('spin'); await loadAll(); render(false); refreshBtn.classList.remove('spin'); }
+refreshBtn.addEventListener('click', refresh);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh(); });
+loadAll().then(() => { render(); if (current==='schedule') liveRefresh(); });
+</script>
+</body>
+</html>

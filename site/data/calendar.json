@@ -1,0 +1,23 @@
+{
+ "lastChecked": "2026-10-20",
+ "note": "Master list of tour-level events. Source: official ATP and WTA calendars (checked weekly). Dates are Monday-to-Sunday tournament weeks unless a longer span is known.",
+ "events": [
+  {"tour":"ATP","name":"Shanghai Masters","city":"Shanghai","country":"China","category":"ATP Masters 1000","surface":"Hard","start":"2026-10-01","end":"2026-10-12","aliases":["Rolex Shanghai Masters","Shanghai"]},
+  {"tour":"WTA","name":"Wuhan Open","city":"Wuhan","country":"China","category":"WTA 1000","surface":"Hard","start":"2026-10-12","end":"2026-10-18","aliases":["Dongfeng Voyah Wuhan Open","Wuhan"]},
+  {"tour":"ATP","name":"Almaty Open","city":"Almaty","country":"Kazakhstan","category":"ATP 250","surface":"Indoor hard","start":"2026-10-19","end":"2026-10-25","aliases":["Almaty"]},
+  {"tour":"ATP","name":"European Open","city":"Brussels","country":"Belgium","category":"ATP 250","surface":"Indoor hard","start":"2026-10-19","end":"2026-10-25","aliases":["Brussels","BNP Paribas Fortis European Open"]},
+  {"tour":"ATP","name":"Grand Prix Auvergne-Rhône-Alpes","city":"Lyon","country":"France","category":"ATP 250","surface":"Indoor hard","start":"2026-10-19","end":"2026-10-25","aliases":["Lyon","Open Parc"]},
+  {"tour":"WTA","name":"Ningbo Open","city":"Ningbo","country":"China","category":"WTA 500","surface":"Hard","start":"2026-10-19","end":"2026-10-25","aliases":["Ningbo"]},
+  {"tour":"WTA","name":"Japan Open","city":"Osaka","country":"Japan","category":"WTA 250","surface":"Hard","start":"2026-10-19","end":"2026-10-25","aliases":["Osaka","Kinoshita Group Japan Open"]},
+  {"tour":"ATP","name":"Swiss Indoors","city":"Basel","country":"Switzerland","category":"ATP 500","surface":"Indoor hard","start":"2026-10-26","end":"2026-11-01","aliases":["Basel","Swiss Indoors Basel"]},
+  {"tour":"ATP","name":"Vienna Open","city":"Vienna","country":"Austria","category":"ATP 500","surface":"Indoor hard","start":"2026-10-26","end":"2026-11-01","aliases":["Erste Bank Open","Vienna"]},
+  {"tour":"WTA","name":"Pan Pacific Open","city":"Tokyo","country":"Japan","category":"WTA 500","surface":"Hard","start":"2026-10-26","end":"2026-11-01","aliases":["Toray Pan Pacific Open","Tokyo"]},
+  {"tour":"WTA","name":"Guangzhou Open","city":"Guangzhou","country":"China","category":"WTA 250","surface":"Hard","start":"2026-10-26","end":"2026-11-01","aliases":["Guangzhou"]},
+  {"tour":"ATP","name":"Paris Masters","city":"Paris","country":"France","category":"ATP Masters 1000","surface":"Indoor hard","start":"2026-11-02","end":"2026-11-08","aliases":["Rolex Paris Masters","Paris"]},
+  {"tour":"WTA","name":"Hong Kong Open","city":"Hong Kong","country":"China","category":"WTA 250","surface":"Hard","start":"2026-11-02","end":"2026-11-08","aliases":["Hong Kong Tennis Open","Hong Kong"]},
+  {"tour":"WTA","name":"Chennai Open","city":"Chennai","country":"India","category":"WTA 250","surface":"Hard","start":"2026-11-02","end":"2026-11-08","aliases":["Chennai"]},
+  {"tour":"ATP","name":"Stockholm Open","city":"Stockholm","country":"Sweden","category":"ATP 250","surface":"Indoor hard","start":"2026-11-09","end":"2026-11-15","aliases":["Stockholm","BNP Paribas Nordic Open"]},
+  {"tour":"WTA","name":"WTA Finals","city":"Indian Wells","country":"USA","category":"Year-end finals","surface":"Hard","start":"2026-11-09","end":"2026-11-15","aliases":["WTA Finals Indian Wells"]},
+  {"tour":"ATP","name":"Nitto ATP Finals","city":"Turin","country":"Italy","category":"Year-end finals","surface":"Indoor hard","start":"2026-11-15","end":"2026-11-22","aliases":["ATP Finals","Turin"]}
+ ]
+}

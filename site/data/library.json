@@ -1,0 +1,42 @@
+{
+ "note": "Hand-picked Pro Tips library. The app mixes these with new uploads from coaching channels.",
+ "watch": [
+  {"name":"Tennis Channel","what":"Most ATP and WTA tour events in the US, plus the year-end finals","url":"https://www.tennischannel.com"},
+  {"name":"Tennis TV","what":"ATP's own streaming service: every ATP Tour match live","url":"https://www.tennistv.com"},
+  {"name":"ESPN","what":"Australian Open, Wimbledon and US Open","url":"https://www.espn.com/watch/"},
+  {"name":"TNT Sports","what":"Roland Garros","url":"https://www.tntsports.com"}
+ ],
+ "majors": [
+  {"name":"Australian Open","where":"Melbourne · Hard","when":"January","url":"https://ausopen.com"},
+  {"name":"Roland Garros","where":"Paris · Clay","when":"May–June","url":"https://www.rolandgarros.com"},
+  {"name":"Wimbledon","where":"London · Grass","when":"June–July","url":"https://www.wimbledon.com"},
+  {"name":"US Open","where":"New York · Hard","when":"August–September","url":"https://www.usopen.org"}
+ ],
+ "tips": [
+  {"cat":"Technique","kind":"Video","title":"Amazing Tennis Forehand in 5 Steps","source":"YouTube","link":"https://www.youtube.com/watch?v=8V_KWh1Uoeo"},
+  {"cat":"Technique","kind":"Video","title":"Simple Tennis Serve Technique Masterclass for Beginners","source":"YouTube","link":"https://www.youtube.com/watch?v=IiRGdagtOKE"},
+  {"cat":"Technique","kind":"Video","title":"How To Hit A Basic Tennis Serve with Venus Williams","source":"YouTube","link":"https://www.youtube.com/watch?v=bRCQwLgEs9M"},
+  {"cat":"Technique","kind":"Video","title":"Easy Forehand Power with One Simple Trick","source":"YouTube","link":"https://www.youtube.com/watch?v=jzCOw0Cw5XE"},
+  {"cat":"Technique","kind":"Video","title":"Fix Your Tennis Serve Technique (3 Steps)","source":"YouTube","link":"https://www.youtube.com/watch?v=JM8QlkkDz0w"},
+  {"cat":"Technique","kind":"Video","title":"The Tennis Forehand: 6 Fundamentals Every Beginner Needs","source":"YouTube","link":"https://www.youtube.com/watch?v=Yg8F4In2TrU"},
+  {"cat":"Training","kind":"Video","title":"Best Gym Exercises For Tennis","source":"YouTube","link":"https://www.youtube.com/watch?v=TYUIP6zLbnM"},
+  {"cat":"Training","kind":"Article","title":"6 Videos About Tennis Footwork Drills","source":"HEAD","link":"https://www.head.com/en_US/footworkdrills"},
+  {"cat":"Training","kind":"Video","title":"25-Min Workout for Tennis Players","source":"YouTube","link":"https://www.youtube.com/watch?v=aXl7h7Gzi1E"},
+  {"cat":"Training","kind":"Article","title":"Easy Ladder Footwork Drills for Tennis","source":"Tennis Companion","link":"https://tenniscompanion.org/easy-ladder-footwork-drills-for-tennis/"},
+  {"cat":"Training","kind":"Video","title":"15 Minute Home Workout For Tennis Players","source":"YouTube","link":"https://www.youtube.com/watch?v=-QSS3RAlslM"},
+  {"cat":"Training","kind":"Video","title":"Tennis Workout: Top 5 Exercises For Tennis Players","source":"YouTube","link":"https://www.youtube.com/watch?v=TCBaMGobwVI"},
+  {"cat":"Injury Prevention","kind":"Video","title":"A Simple Dynamic Warm Up Routine for Tennis with No Equipment","source":"YouTube","link":"https://www.youtube.com/watch?v=3y1Nm-iRkyE"},
+  {"cat":"Injury Prevention","kind":"Article","title":"Tennis Warm-Up for Speed, Power & Injury Prevention","source":"Therapeutic Associates","link":"https://www.therapeuticassociates.com/dynamic-warm-ups-for-tennis/"},
+  {"cat":"Injury Prevention","kind":"Video","title":"Ultimate Tennis Warmup: Stretches Before Your Next Match","source":"YouTube","link":"https://www.youtube.com/watch?v=76868blg4o4"},
+  {"cat":"Injury Prevention","kind":"Article","title":"Tennis Medicine Program: Wellness","source":"Emory Healthcare","link":"https://www.emoryhealthcare.org/centers-programs/sports-medicine-center/tennis-medicine-program/wellness"},
+  {"cat":"Rehab","kind":"Article","title":"Physical therapy for tennis elbow: tips and best exercises","source":"Hinge Health","link":"https://www.hingehealth.com/gb/en/resources/articles/physical-therapy-for-tennis-elbow/"},
+  {"cat":"Rehab","kind":"Video","title":"Tennis Elbow Fix: Exercises and Stretches","source":"The Prehab Guys","link":"https://library.theprehabguys.com/vimeo-video/tennis-elbow-fix-exercises-and-stretches-lateral-epicondylitis/"},
+  {"cat":"Rehab","kind":"Article","title":"Exercise program for tennis elbow","source":"Hawai‘i Pacific Health","link":"https://livinghealthy.hawaiipacifichealth.org/orthopedics/recovery/exercise-program-tennis-elbow"},
+  {"cat":"Fitness & Recovery","kind":"Article","title":"10 Hydration Tips Every Tennis Coach Should Know","source":"USTA","link":"https://www.ustacoaching.com/en/home/news/coach-guide-to-tennis-hydration.html"},
+  {"cat":"Fitness & Recovery","kind":"Video","title":"10 Min Tennis Stretch Routine for Flexibility and Injury Prevention","source":"YouTube","link":"https://www.youtube.com/watch?v=dE6J82QSIIk"},
+  {"cat":"Fitness & Recovery","kind":"Article","title":"Tennis hydration and fueling recommendations","source":"Precision Hydration","link":"https://www.precisionhydration.com/performance-advice/hydration/tennis-hydration-fueling-recommendations/"},
+  {"cat":"Fitness & Recovery","kind":"Video","title":"Venus Williams' Best Recovery Stretches for Tennis","source":"YouTube","link":"https://www.youtube.com/watch?v=G9j1Jt9DIkQ"},
+  {"cat":"Fitness & Recovery","kind":"Video","title":"Post Tennis Stretches Every Player Should Do","source":"YouTube","link":"https://www.youtube.com/watch?v=OmBDoC1ZeAM"},
+  {"cat":"Fitness & Recovery","kind":"Video","title":"Tennis Mobility and Stretching","source":"YouTube","link":"https://www.youtube.com/watch?v=S3nmuMlJwYM"}
+ ]
+}
