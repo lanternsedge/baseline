@@ -129,53 +129,6 @@ a.card:hover,.feature:hover h3,.list > a:hover h3,a.tip:hover h3{color:var(--pur
 .sets sup{font-size:10px;letter-spacing:0}
 .watch{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 16px;align-items:center}
 .notice{padding:12px 14px;border-radius:6px;background:var(--notice);font-size:15px}
-/* Audio briefing */
-.player{border-radius:6px;overflow:hidden;background:var(--surface);border:1px solid var(--rule);display:flex;flex-direction:column}
-.player .stage{position:relative;aspect-ratio:16/8;background:var(--court);overflow:hidden}
-.player .stage .court{position:absolute;inset:0}
-.player .stage .eq{position:absolute;left:24px;bottom:18px;display:flex;gap:4px;align-items:flex-end;height:28px}
-.player .stage .eq span{width:5px;border-radius:2px;background:var(--ball);height:30%}
-.player.on .stage .eq span{animation:eq 1s ease-in-out infinite}
-.player .stage .eq span:nth-child(2){animation-delay:.2s}.player .stage .eq span:nth-child(3){animation-delay:.4s}.player .stage .eq span:nth-child(4){animation-delay:.1s}
-@keyframes eq{0%,100%{height:25%}50%{height:100%}}
-@media (prefers-reduced-motion:reduce){ .player.on .stage .eq span{animation:none;height:70%} }
-.player .txt{padding:20px 24px 24px;display:flex;flex-direction:column;gap:8px}
-.player h3{font-size:30px;line-height:1.15}
-.controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:6px}
-.bigplay{width:72px;height:72px;border-radius:50%;border:0;background:var(--green);color:var(--on-green);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
-.bigplay svg{width:30px;height:30px}
-.skip{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);background:var(--bg);color:var(--green);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
-.skip:disabled{opacity:.4;cursor:default}
-.speed{display:flex;gap:6px;margin-left:auto}
-.speed button{font:600 14px var(--body);min-height:40px;min-width:52px;padding:0 10px;border-radius:999px;border:1px solid var(--rule);background:var(--bg);color:var(--fg);cursor:pointer}
-.speed button[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:var(--bg)}
-.now{font-size:15px;color:var(--muted);min-height:22px}
-.now strong{color:var(--fg)}
-.bar{display:flex;gap:3px;height:6px}
-.bar i{flex:1;border-radius:3px;background:var(--rule)}
-.bar i.done{background:var(--green)}
-.bar i.cur{background:var(--purple)}
-.stories{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;counter-reset:st}
-.stories li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;padding:14px 12px;margin:0 -12px;border-radius:6px;border-bottom:1px solid var(--rule)}
-.stories li:last-child{border-bottom:0}
-.stories li.cur{background:var(--purple-soft);border-bottom-color:transparent}
-.stories .num{width:36px;height:36px;border-radius:50%;border:1px solid var(--rule);background:var(--surface);font:700 15px var(--body);color:var(--green);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
-.stories li.cur .num{background:var(--purple);border-color:var(--purple);color:var(--bg)}
-.stories .s-body{display:flex;flex-direction:column;gap:4px;min-width:0}
-.stories h3{font-size:19px;line-height:1.25}
-.stories p{margin:2px 0 0;font-size:15px;color:var(--muted)}
-.stories a.read{font-size:14px;font-weight:600;color:var(--purple);align-self:flex-start;padding:6px 0}
-.eds{display:flex;gap:10px;flex-wrap:wrap}
-.eds button{font:inherit;text-align:left;padding:12px 16px;border-radius:6px;border:1px solid var(--rule);background:var(--surface);color:var(--fg);cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:170px}
-.eds button[aria-pressed="true"]{border-color:var(--purple);box-shadow:inset 0 0 0 1px var(--purple)}
-.eds strong{font-family:var(--display);font-size:17px}
-details.voices{padding:16px 20px;border-radius:6px;background:var(--surface);border:1px solid var(--rule)}
-details.voices summary{cursor:pointer;font-weight:700;color:var(--green);min-height:32px;display:flex;align-items:center}
-.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-top:12px}
-.vgrid label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;min-width:0}
-.vgrid select{font:16px var(--body);min-height:44px;padding:0 10px;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--fg);max-width:100%}
-#mini.on{background:var(--green);color:var(--on-green);border-color:var(--green)}
-@media (max-width:820px){ .vgrid{grid-template-columns:minmax(0,1fr)} .player h3{font-size:24px} .speed{margin-left:0} }
 .foot{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;margin-top:32px}
 
 @media (max-width:820px){
@@ -194,7 +147,6 @@ details.voices summary{cursor:pointer;font-weight:700;color:var(--green);min-hei
       <div class="logo"><img src="apple-touch-icon.png" alt="" width="36" height="36"><b>Baseline</b></div>
       <div class="right">
         <span class="updated" id="updated"></span>
-        <button class="icon-btn" id="mini" type="button" aria-label="Pause briefing" hidden></button>
         <button class="icon-btn" id="refresh" type="button" aria-label="Refresh">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v4h-4"/></svg>
         </button>
@@ -231,8 +183,8 @@ async function loadJSON(name){
   catch { return null; }
 }
 async function loadAll(){
-  const [news, videos, espn, cal, lib, briefs] = await Promise.all(['news.json','videos.json','espn.json','calendar.json','library.json','briefings.json'].map(loadJSON));
-  Object.assign(D, {news, videos, espn, cal, lib, briefs});
+  const [news, videos, espn, cal, lib] = await Promise.all(['news.json','videos.json','espn.json','calendar.json','library.json'].map(loadJSON));
+  Object.assign(D, {news, videos, espn, cal, lib});
 }
 
 /* ---------- News ---------- */
@@ -416,197 +368,9 @@ async function liveRefresh(){
   } catch { /* the browser may not be allowed to read ESPN directly; the 30-minute cached file is used instead */ }
 }
 
-/* ---------- Audio briefing ---------- */
-// Read aloud on the iPad with Apple's British voices (Web Speech API), alternating a male and a female voice story by story.
-const TTS = 'speechSynthesis' in window ? window.speechSynthesis : null;
-const ICON = {
-  play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>',
-  pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>',
-  prev:'<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z" fill="currentColor"/></svg>',
-  next:'<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z" fill="currentColor"/></svg>',
-};
-const MALE = /\b(daniel|arthur|oliver|malcolm|fred|jamie|george|harry|rishi|ryan|thomas|male)\b/i;
-const FEMALE = /\b(kate|serena|martha|stephanie|moira|fiona|libby|sonia|maisie|susan|hazel|female)\b/i;
-const A$ = { edId:null, segs:[], pos:0, playing:false, gen:0, rate:1, lock:null, voices:[] };
-try { A$.rate = +localStorage.getItem('rate') || 1; } catch {}
-const words = s => (String(s||'').match(/\S+/g) || []).length;
-const ord = n => n + (n%100>=11 && n%100<=13 ? 'th' : ['th','st','nd','rd'][n%10] || 'th');
-const spokenDate = d => { const t = new Date(d + 'T12:00:00'); return `${t.toLocaleDateString('en-GB',{weekday:'long'})} the ${ord(t.getDate())} of ${t.toLocaleDateString('en-GB',{month:'long'})}`; };
-const shortDate = d => new Date(d + 'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-const sentences = s => (String(s).replace(/\s+/g,' ').trim().match(/[^.!?]+(?:[.!?]+["'”’)\]]*|$)\s*/g) || []).map(x => x.trim()).filter(Boolean);
-const endStop = s => /[.!?]["'”’]?$/.test(s.trim()) ? s.trim() : s.trim() + '.';
-
-function loadVoices(){
-  if (!TTS) return;
-  const gb = TTS.getVoices().filter(v => /^en[-_]gb/i.test(v.lang));
-  A$.voices = gb.length ? gb : TTS.getVoices().filter(v => /^en/i.test(v.lang));
-}
-const quality = v => (/premium/i.test(v.name) ? 3 : /enhanced/i.test(v.name) ? 2 : 1) + (v.localService ? .5 : 0);
-function voiceFor(kind){
-  let saved = ''; try { saved = localStorage.getItem('voice' + kind) || ''; } catch {}
-  const vs = A$.voices; if (!vs.length) return null;
-  const s = vs.find(v => v.voiceURI === saved); if (s) return s;
-  const re = kind === 'M' ? MALE : FEMALE;
-  const pool = vs.filter(v => re.test(v.name));
-  return (pool.length ? pool : vs).slice().sort((a,b) => quality(b) - quality(a))[0];
-}
-const editions = () => D.briefs?.editions || [];
-const curEdition = () => editions().find(e => e.id === A$.edId) || editions()[0] || null;
-function greeting(ed){ return ed.edition === 'Evening' ? 'Good evening' : ed.edition === 'Midday' ? 'Good afternoon' : 'Good morning'; }
-function buildSegs(ed){
-  const segs = [], n = ed.stories.length;
-  const intro = ed.intro || `${greeting(ed)}, and welcome to the Baseline ${ed.edition.toLowerCase()} briefing for ${spokenDate(ed.date)}. ${n === 1 ? 'One story' : n + ' stories'} today.`;
-  sentences(intro).forEach(t => segs.push({story:-1, text:t, v:'F'}));
-  ed.stories.forEach((s, i) => {
-    const v = i % 2 === 0 ? 'M' : 'F';
-    segs.push({story:i, text:`Story ${i+1}. From ${s.source}, ${spokenDate(s.date)}.`, v});
-    segs.push({story:i, text:endStop(s.title), v});
-    sentences(s.summary).forEach(t => segs.push({story:i, text:t, v}));
-  });
-  sentences(ed.outro || 'That’s the briefing. The full stories are linked in the Audio tab. Enjoy your tennis.').forEach(t => segs.push({story:n, text:t, v:'F'}));
-  return segs;
-}
-const curStory = () => A$.segs[A$.pos]?.story ?? -1;
-function startEdition(ed, story = -1){
-  if (A$.edId !== ed.id || !A$.segs.length) { A$.edId = ed.id; A$.segs = buildSegs(ed); }
-  A$.pos = story < 0 ? 0 : Math.max(0, A$.segs.findIndex(s => s.story === story));
-  play();
-}
-async function keepAwake(on){
-  try {
-    if (on && !A$.lock && navigator.wakeLock) { A$.lock = await navigator.wakeLock.request('screen'); A$.lock.addEventListener('release', () => { A$.lock = null; }); }
-    if (!on && A$.lock) { await A$.lock.release(); A$.lock = null; }
-  } catch { A$.lock = null; }
-}
-function play(){
-  if (!TTS) return;
-  loadVoices();
-  A$.playing = true; A$.gen++; TTS.cancel();
-  keepAwake(true); speakNext(A$.gen); paintAudio();
-}
-function pause(){
-  A$.playing = false; A$.gen++; TTS && TTS.cancel(); keepAwake(false); paintAudio();
-}
-function speakNext(gen){
-  if (gen !== A$.gen || !A$.playing) return;
-  const seg = A$.segs[A$.pos];
-  if (!seg) { A$.playing = false; A$.pos = 0; keepAwake(false); paintAudio(); return; }
-  const u = new SpeechSynthesisUtterance(seg.text);
-  const v = voiceFor(seg.v);
-  if (v) { u.voice = v; u.lang = v.lang; } else u.lang = 'en-GB';
-  u.rate = A$.rate; u.pitch = 1;
-  const advance = () => {
-    if (gen !== A$.gen) return;
-    const prev = A$.segs[A$.pos]; A$.pos++;
-    const nxt = A$.segs[A$.pos];
-    paintAudio();
-    setTimeout(() => speakNext(gen), nxt && prev && nxt.story !== prev.story ? 900 : 120);
-  };
-  u.onend = advance;
-  u.onerror = e => { if (e.error === 'interrupted' || e.error === 'canceled') return; advance(); };
-  TTS.speak(u);
-}
-function skip(dir){
-  if (!A$.segs.length) return;
-  const s = curStory(), first = A$.segs.findIndex(x => x.story === s);
-  let target;
-  if (dir > 0) target = s + 1;
-  else target = (A$.pos - first > 2 || s < 0) ? s : s - 1;
-  const i = A$.segs.findIndex(x => x.story === target);
-  A$.pos = i < 0 ? (dir > 0 ? A$.segs.length - 1 : 0) : i;
-  if (A$.playing) play(); else paintAudio();
-}
-function setRate(r){ A$.rate = r; try { localStorage.setItem('rate', r); } catch {} if (A$.playing) play(); else paintAudio(); }
-function minutes(ed){ const w = buildSegs(ed).reduce((t,s) => t + words(s.text), 0); return Math.max(1, Math.round(w / 155 / A$.rate)); }
-
-function audioView(){
-  const eds = editions();
-  if (!TTS) return `<section class="view"><div class="notice">This browser can't read aloud. Open Baseline from the iPad Home Screen or in Safari to listen.</div></section>`;
-  if (!eds.length) return `<section class="view"><div class="empty">The first briefing is being written. Editions arrive each morning around 6:45, with extra midday and evening editions during the big tournaments.</div></section>`;
-  const ed = curEdition();
-  if (A$.edId !== ed.id) { A$.edId = ed.id; A$.segs = buildSegs(ed); A$.pos = 0; }
-  const n = ed.stories.length;
-  return `<section class="view">
-   <div class="lead">
-    <div class="player${A$.playing?' on':''}" id="player">
-     <div class="stage"><div class="court">${courtInner(true)}</div><div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>
-     <div class="txt">
-      <span class="eyebrow">${esc(ed.edition)} edition · ${esc(shortDate(ed.date))}</span>
-      <h3>The Baseline Briefing</h3>
-      <span class="meta">${n} ${n===1?'story':'stories'} · about ${minutes(ed)} min · read in British voices</span>
-      <div class="controls">
-       <button class="skip" type="button" data-a="prev" aria-label="Previous story">${ICON.prev}</button>
-       <button class="bigplay" type="button" data-a="toggle" id="bigplay" aria-label="Play">${ICON.play}</button>
-       <button class="skip" type="button" data-a="next" aria-label="Next story">${ICON.next}</button>
-       <div class="speed" role="group" aria-label="Reading speed">${[0.9,1,1.1].map(r => `<button type="button" data-rate="${r}" aria-pressed="${r===A$.rate}">${r===1?'1×':r+'×'}</button>`).join('')}</div>
-      </div>
-      <div class="bar" id="bar" aria-hidden="true">${ed.stories.map(() => '<i></i>').join('')}</div>
-      <div class="now" id="now" aria-live="polite"></div>
-     </div>
-    </div>
-    <div>
-     <div class="section-head" style="margin-bottom:8px"><h2>In this edition</h2><span class="meta">Tap a number to listen from there</span></div>
-     <ol class="stories" id="stories">${ed.stories.map((s,i) => `<li data-i="${i}">
-       <button class="num" type="button" data-story="${i}" aria-label="Play story ${i+1}">${i+1}</button>
-       <div class="s-body"><span class="eyebrow">${esc(s.source)} · ${esc(shortDate(s.date))}</span><h3>${esc(s.title)}</h3><p>${esc(s.summary)}</p>${A(s.link, 'Read the full story', 'read ext')}</div>
-     </li>`).join('')}</ol>
-    </div>
-   </div>
-   ${eds.length > 1 ? `<div class="section-head"><h2>Editions</h2><span class="meta">The last few days</span></div>
-   <div class="eds" role="group" aria-label="Editions">${eds.map(e => `<button type="button" data-ed="${esc(e.id)}" aria-pressed="${e.id===ed.id}"><span class="eyebrow">${esc(shortDate(e.date))}</span><strong>${esc(e.edition)} edition</strong><span class="meta">${e.stories.length} stories · ${minutes(e)} min</span></button>`).join('')}</div>` : ''}
-   ${voicesPanel()}
-   <p class="note">Summaries are written for Baseline in its own words; each links to the original article. The iPad stops reading aloud once the screen locks; newer iPads stay awake while the briefing plays, and on older ones you can lengthen Auto-Lock in Settings › Display &amp; Brightness.</p>
-  </section>`;
-}
-function voicesPanel(){
-  loadVoices();
-  const vs = A$.voices;
-  const opts = kind => { const cur = voiceFor(kind); return vs.map(v => `<option value="${esc(v.voiceURI)}"${cur && v.voiceURI===cur.voiceURI?' selected':''}>${esc(v.name)}${v.lang && !/^en-gb/i.test(v.lang.replace('_','-'))?' ('+esc(v.lang)+')':''}</option>`).join(''); };
-  const best = vs.some(v => quality(v) >= 2);
-  return `<details class="voices"${best?'':' open'}>
-   <summary>Voices</summary>
-   ${vs.length ? `<div class="vgrid">
-     <label>Male voice (stories 1, 3, 5…)<select data-voice="M">${opts('M')}</select></label>
-     <label>Female voice (intro and stories 2, 4, 6…)<select data-voice="F">${opts('F')}</select></label>
-   </div>
-   <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:12px"><button class="btn small" type="button" data-sample="M">Hear male voice</button><button class="btn small" type="button" data-sample="F">Hear female voice</button></div>` : '<p class="meta">Voices are still loading. Reopen this tab in a moment.</p>'}
-   <p class="note" style="padding-top:12px">${best ? 'For the most natural sound,' : 'These voices sound robotic. For a much more natural sound,'} download Apple's Enhanced or Premium British voices (free): Settings › Accessibility › Read &amp; Speak (Spoken Content on older iPads) › Voices › English, then under English (UK) choose Daniel, Arthur or Oliver and Kate, Serena or Martha and tap download. Reopen Baseline and pick them here.</p>
-  </details>`;
-}
-function sample(kind){
-  if (!TTS) return;
-  pause(); loadVoices();
-  const u = new SpeechSynthesisUtterance(kind === 'M' ? 'Good morning. Here is the latest from the tour, read for Baseline.' : 'And now, from Wimbledon to Melbourne, the stories that matter today.');
-  const v = voiceFor(kind); if (v) { u.voice = v; u.lang = v.lang; }
-  u.rate = A$.rate; TTS.speak(u);
-}
-function paintAudio(){
-  const mini = document.getElementById('mini');
-  mini.hidden = !(A$.playing && current !== 'audio');
-  mini.className = 'icon-btn' + (A$.playing ? ' on' : '');
-  mini.innerHTML = `<span style="display:inline-flex;width:20px;height:20px">${ICON.pause}</span>`;
-  const p = document.getElementById('player'); if (!p) return;
-  const ed = curEdition(); if (!ed) return;
-  p.classList.toggle('on', A$.playing);
-  const bp = document.getElementById('bigplay');
-  bp.innerHTML = A$.playing ? ICON.pause : ICON.play; bp.setAttribute('aria-label', A$.playing ? 'Pause' : (A$.pos ? 'Resume' : 'Play'));
-  const s = curStory(), n = ed.stories.length;
-  [...document.querySelectorAll('#bar i')].forEach((b,i) => { b.className = i < s ? 'done' : i === s ? 'cur' : ''; });
-  [...document.querySelectorAll('#stories li')].forEach((li,i) => li.classList.toggle('cur', i === s && (A$.playing || A$.pos > 0)));
-  const st = ed.stories[s];
-  document.getElementById('now').innerHTML = !A$.playing && !A$.pos ? 'Tap play to listen.' :
-    st ? `${A$.playing?'Now reading':'Paused at'} <strong>story ${s+1} of ${n}</strong> · ${esc(st.source)}` :
-    s < 0 ? (A$.playing ? 'Introduction' : 'Paused at the introduction') : 'Sign-off';
-  const cur = document.querySelector('#stories li.cur');
-  if (cur && A$.playing && current === 'audio') { const r = cur.getBoundingClientRect(); if (r.top < 120 || r.bottom > innerHeight) cur.scrollIntoView({behavior:'smooth', block:'center'}); }
-}
-if (TTS) { loadVoices(); TTS.addEventListener?.('voiceschanged', () => { const n = A$.voices.length; loadVoices(); if (A$.voices.length !== n && current === 'audio' && !A$.playing) render(false); }); }
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && A$.playing) keepAwake(true); });
-
 /* ---------- shell ---------- */
 const VIEWS = {
   top:{label:'Top Stories', r:() => newsView(newsItems(), 'Top story')},
-  audio:{label:'Audio', r:audioView},
   atp:{label:'ATP', r:() => newsView(newsItems().filter(n => n.tour==='ATP'), 'ATP')},
   wta:{label:'WTA', r:() => newsView(newsItems().filter(n => n.tour==='WTA'), 'WTA')},
   slams:{label:'Grand Slams', r:slamsView},
@@ -622,28 +386,16 @@ function render(top=true){
   main.innerHTML = VIEWS[current].r() + `<p class="foot">Headlines link to the original publishers. Articles open in Safari.</p>`;
   const g = D.news?.generatedAt; document.getElementById('updated').textContent = g ? 'Updated ' + ago(g) : '';
   if (top) window.scrollTo(0,0);
-  paintAudio();
   clearInterval(liveTimer);
   if (current === 'schedule') { liveTimer = setInterval(liveRefresh, 60000); }
 }
 tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; current = b.dataset.k; try{localStorage.setItem('tab',current)}catch{} render(); if (current==='schedule') liveRefresh(); });
 main.addEventListener('click', e => {
-  const a = e.target.closest('button[data-a]');
-  if (a) { const k = a.dataset.a, ed = curEdition();
-    if (k === 'toggle') { if (A$.playing) pause(); else if (ed) { if (!A$.segs.length || A$.edId !== ed.id) startEdition(ed); else play(); } }
-    else skip(k === 'next' ? 1 : -1);
-    return; }
-  const st = e.target.closest('button[data-story]'); if (st) { const ed = curEdition(); if (ed) startEdition(ed, +st.dataset.story); return; }
-  const r = e.target.closest('button[data-rate]'); if (r) { setRate(+r.dataset.rate); [...document.querySelectorAll('button[data-rate]')].forEach(b => b.setAttribute('aria-pressed', b === r)); return; }
-  const ed = e.target.closest('button[data-ed]'); if (ed) { if (ed.dataset.ed !== A$.edId) { pause(); A$.edId = ed.dataset.ed; A$.segs = []; A$.pos = 0; } render(false); return; }
-  const sm = e.target.closest('button[data-sample]'); if (sm) { sample(sm.dataset.sample); return; }
   const c = e.target.closest('button[data-cat]'); if (c) { tipCat = c.dataset.cat; render(false); return; }
   const ev = e.target.closest('button[data-ev]'); if (ev) { selEvent = thisWeek().find(x => x.name === ev.dataset.ev); selDay = 0; render(false); return; }
   const d = e.target.closest('button[data-day]'); if (d) { selDay = +d.dataset.day; render(false); return; }
   if (e.target.closest('button[data-watch]')) document.getElementById('watch')?.scrollIntoView({behavior:'smooth', block:'start'});
 });
-main.addEventListener('change', e => { const v = e.target.closest('select[data-voice]'); if (v) { try { localStorage.setItem('voice' + v.dataset.voice, v.value); } catch {} if (A$.playing) play(); } });
-document.getElementById('mini').addEventListener('click', pause);
 const refreshBtn = document.getElementById('refresh');
 async function refresh(){ refreshBtn.classList.add('spin'); await loadAll(); render(false); refreshBtn.classList.remove('spin'); }
 refreshBtn.addEventListener('click', refresh);
