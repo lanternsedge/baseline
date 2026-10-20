@@ -555,7 +555,7 @@ function audioView(){
    ${eds.length > 1 ? `<div class="section-head"><h2>Editions</h2><span class="meta">The last few days</span></div>
    <div class="eds" role="group" aria-label="Editions">${eds.map(e => `<button type="button" data-ed="${esc(e.id)}" aria-pressed="${e.id===ed.id}"><span class="eyebrow">${esc(shortDate(e.date))}</span><strong>${esc(e.edition)} edition</strong><span class="meta">${e.stories.length} stories · ${minutes(e)} min</span></button>`).join('')}</div>` : ''}
    ${voicesPanel()}
-   <p class="note">Summaries are written for Baseline in its own words; each links to the original article. The screen stays awake while the briefing plays, because the iPad stops reading aloud once it locks.</p>
+   <p class="note">Summaries are written for Baseline in its own words; each links to the original article. The iPad stops reading aloud once the screen locks; newer iPads stay awake while the briefing plays, and on older ones you can lengthen Auto-Lock in Settings › Display &amp; Brightness.</p>
   </section>`;
 }
 function voicesPanel(){
@@ -570,7 +570,7 @@ function voicesPanel(){
      <label>Female voice (intro and stories 2, 4, 6…)<select data-voice="F">${opts('F')}</select></label>
    </div>
    <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:12px"><button class="btn small" type="button" data-sample="M">Hear male voice</button><button class="btn small" type="button" data-sample="F">Hear female voice</button></div>` : '<p class="meta">Voices are still loading. Reopen this tab in a moment.</p>'}
-   <p class="note" style="padding-top:12px">${best ? 'For the most natural sound,' : 'These voices sound robotic. For a much more natural sound,'} download Apple's Enhanced or Premium British voices (free): Settings › Accessibility › Spoken Content › Voices › English, then under English (UK) choose Daniel, Arthur or Oliver and Kate, Serena or Martha and tap download. Reopen Baseline and pick them here.</p>
+   <p class="note" style="padding-top:12px">${best ? 'For the most natural sound,' : 'These voices sound robotic. For a much more natural sound,'} download Apple's Enhanced or Premium British voices (free): Settings › Accessibility › Spoken Content (called Speech on older iPads) › Voices › English, then under English (UK) choose Daniel, Arthur or Oliver and Kate, Serena or Martha and tap download. Reopen Baseline and pick them here.</p>
   </details>`;
 }
 function sample(kind){
