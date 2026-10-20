@@ -190,9 +190,12 @@ async function loadAll(){
 /* ---------- News ---------- */
 function newsView(items, title){
   if (!items.length) return `<section class="view"><div class="empty">No ${esc(title)} stories in the last few days. Check back soon.</div></section>`;
-  const f = items.find(n => n.image) || items[0];
-  const rest = items.filter(n => n !== f);
-  const side = rest.slice(0,3), more = rest.slice(3,30);
+  // BBC Sport, the New York Times and The Athletic get first claim on the featured story and the three beside it.
+  const fresh = items.filter(n => isPref(n) && Date.now() - Date.parse(n.date) < 2*DAY);
+  const f = fresh.find(n => n.image) || items.find(n => n.image) || items[0];
+  const side = [...fresh, ...items].filter((n,i,a) => n !== f && a.indexOf(n) === i).slice(0,3);
+  const rest = items.filter(n => n !== f && !side.includes(n));
+  const more = rest.slice(0,27);
   const line = n => `<span class="meta ext">${esc(n.source)} · ${ago(n.date)}</span>`;
   return `<section class="view">
    <div class="lead">
@@ -203,6 +206,8 @@ function newsView(items, title){
    <div class="grid3">${more.map(n => A(n.link, `<span class="eyebrow">${esc(tourLabel(n))}</span><h3>${esc(n.title)}</h3>${line(n)}`, 'card')).join('')}</div>` : ''}
   </section>`;
 }
+const PREF = /^(BBC Sport|BBC|The Athletic|The New York Times|New York Times)$/i;
+const isPref = n => PREF.test(n.source || '');
 const newsItems = () => D.news?.items || [];
 function slamsView(){
   const items = newsItems().filter(n => n.slam);

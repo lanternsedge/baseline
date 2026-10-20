@@ -50,7 +50,7 @@ export function parseFeed(xml) {
 // ---------- news ----------
 const NEWS_SOURCES = [
   { id: 'atp', name: 'ATP Tour', url: 'https://www.atptour.com/en/media/rss-feed/xml-feed', tour: 'ATP' },
-  { id: 'tennis365', name: 'Tennis365', url: 'https://www.tennis365.com/feed' },
+  { id: 'tennis365', name: 'Tennis365', url: 'https://www.tennis365.com/feed', cap: 5 }, // Penny prefers BBC, NYT and The Athletic: keep Tennis365 to its newest few
   { id: 'espn', name: 'ESPN', url: 'https://www.espn.com/espn/rss/tennis/news' },
   { id: 'bbc', name: 'BBC Sport', url: 'https://feeds.bbci.co.uk/sport/tennis/rss.xml' },
   { id: 'nyt', name: 'New York Times', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Tennis.xml', filter: true },
@@ -86,6 +86,7 @@ async function buildNews() {
       const items = parseFeed(await get(s.url)).slice(0, 30);
       let n = 0;
       for (const it of items) {
+        if (s.cap && n >= s.cap) break;
         if (!it.title || !it.link) continue;
         let title = it.title, source = s.name;
         if (s.google) { const m = title.match(/^(.*) - ([^-]+)$/); if (m) { title = m[1].trim(); source = m[2].trim() || s.name; } }
