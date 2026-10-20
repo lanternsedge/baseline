@@ -56,9 +56,9 @@ const NEWS_SOURCES = [
   { id: 'nyt', name: 'New York Times', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Tennis.xml', filter: true },
   { id: 'athletic', name: 'The Athletic', url: 'https://www.nytimes.com/athletic/rss/tennis/', filter: true },
   // Google News searches fill gaps for sites without their own feed (results link through Google).
-  { id: 'gn-wta', name: 'WTA', url: 'https://news.google.com/rss/search?q=site:wtatennis.com+when:7d&hl=en-US&gl=US&ceid=US:en', tour: 'WTA', google: true },
+  { id: 'gn-wta', name: 'WTA', url: 'https://news.google.com/rss/search?q=site:wtatennis.com/news+when:7d&hl=en-US&gl=US&ceid=US:en', tour: 'WTA', google: true },
   { id: 'gn-athletic', name: 'The Athletic', url: 'https://news.google.com/rss/search?q=tennis+site:nytimes.com/athletic+when:7d&hl=en-US&gl=US&ceid=US:en', google: true },
-  { id: 'gn-atp', name: 'ATP Tour', url: 'https://news.google.com/rss/search?q=site:atptour.com+news+when:7d&hl=en-US&gl=US&ceid=US:en', tour: 'ATP', google: true },
+  { id: 'gn-atp', name: 'ATP Tour', url: 'https://news.google.com/rss/search?q=site:atptour.com/en/news+when:7d&hl=en-US&gl=US&ceid=US:en', tour: 'ATP', google: true },
 ];
 
 const WTA_NAMES = ['sabalenka','swiatek','gauff','rybakina','pegula','andreeva','paolini','zheng','navarro','keys','badosa','muchova','svitolina','ostapenko','kostyuk','chwalinska','kartal','eala','alexandrova','mertens','krejcikova','vondrousova','osaka','raducanu','jabeur','kasatkina','samsonova','shnaider','noskova','haddad maia','bencic','anisimova','fernandez','kenin','stephens','kalinskaya','boulter','putintseva','linette','frech','vekic','sakkari','collins','azarenka','siniakova','townsend','stefani','dabrowski'];
@@ -76,7 +76,7 @@ function classify(title, desc, fixedTour) {
 const PRO_RE = new RegExp('\\b(' + [...WTA_NAMES, ...ATP_NAMES].map(n => n.replace(/[-]/g, '.')).join('|') + ')\\b', 'i');
 const isTennis = t => /\b(tennis|atp|wta|grand slam|wimbledon|roland garros|french open|us open|australian open|davis cup|billie jean king cup|united cup|laver cup)\b/i.test(t) || PRO_RE.test(t);
 // Draw sheets, order-of-play PDFs and other non-article pages that some searches return.
-const isJunk = t => t.split(/\s+/).length < 4 || /^[^a-z]*$/.test(t) || /\b(draw ls|order of play|draws?\s*$|pdf)\b/i.test(t);
+const isJunk = t => / \| /.test(t) || t.split(/\s+/).length < 4 || /^[^a-z]*$/.test(t) || /\b(draw ls|order of play|draws?\s*$|pdf)\b/i.test(t);
 const norm = s => s.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
 
 async function buildNews() {
