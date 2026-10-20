@@ -53,8 +53,8 @@ const NEWS_SOURCES = [
   { id: 'tennis365', name: 'Tennis365', url: 'https://www.tennis365.com/feed' },
   { id: 'espn', name: 'ESPN', url: 'https://www.espn.com/espn/rss/tennis/news' },
   { id: 'bbc', name: 'BBC Sport', url: 'https://feeds.bbci.co.uk/sport/tennis/rss.xml' },
-  { id: 'nyt', name: 'New York Times', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Tennis.xml' },
-  { id: 'athletic', name: 'The Athletic', url: 'https://www.nytimes.com/athletic/rss/tennis/' },
+  { id: 'nyt', name: 'New York Times', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Tennis.xml', filter: true },
+  { id: 'athletic', name: 'The Athletic', url: 'https://www.nytimes.com/athletic/rss/tennis/', filter: true },
   // Google News searches fill gaps for sites without their own feed (results link through Google).
   { id: 'gn-wta', name: 'WTA', url: 'https://news.google.com/rss/search?q=site:wtatennis.com+when:7d&hl=en-US&gl=US&ceid=US:en', tour: 'WTA', google: true },
   { id: 'gn-athletic', name: 'The Athletic', url: 'https://news.google.com/rss/search?q=tennis+site:nytimes.com/athletic+when:7d&hl=en-US&gl=US&ceid=US:en', google: true },
@@ -73,6 +73,10 @@ function classify(title, desc, fixedTour) {
   const slam = SLAMS.some(s => t.includes(s));
   return { tour, slam };
 }
+const PRO_RE = new RegExp('\\b(' + [...WTA_NAMES, ...ATP_NAMES].map(n => n.replace(/[-]/g, '.')).join('|') + ')\\b', 'i');
+const isTennis = t => /\b(tennis|atp|wta|grand slam|wimbledon|roland garros|french open|us open|australian open|davis cup|billie jean king cup|united cup|laver cup)\b/i.test(t) || PRO_RE.test(t);
+// Draw sheets, order-of-play PDFs and other non-article pages that some searches return.
+const isJunk = t => t.split(/\s+/).length < 4 || /^[^a-z]*$/.test(t) || /\b(draw ls|order of play|draws?\s*$|pdf)\b/i.test(t);
 const norm = s => s.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
 
 async function buildNews() {
@@ -85,6 +89,8 @@ async function buildNews() {
         if (!it.title || !it.link) continue;
         let title = it.title, source = s.name;
         if (s.google) { const m = title.match(/^(.*) - ([^-]+)$/); if (m) { title = m[1].trim(); source = m[2].trim() || s.name; } }
+        if (isJunk(title)) continue;
+        if ((s.filter || s.google) && !isTennis(title + ' ' + it.desc)) continue;
         const ts = Date.parse(it.date) || Date.now();
         if (Date.now() - ts > 10 * 864e5) continue; // last 10 days only
         const desc = s.google ? '' : it.desc.slice(0, 260);
@@ -116,8 +122,8 @@ const CHANNELS = [
   { handle: 'BodyweightWarrior', name: 'Tom Merrick', kind: 'body' },
 ];
 const CATS = [
-  ['Rehab', /\b(rehab|recover(y|ing)? from|tennis elbow|golfer'?s elbow|tendon|tendinitis|tendinopathy|rotator cuff|sprain|strain|pain|injur(y|ed) (fix|recovery))\b/i],
-  ['Injury Prevention', /\b(warm[- ]?up|prevent|injury|injuries|prehab|protect|shoulder health|healthy (knees|shoulders|back))\b/i],
+  ['Rehab', /\b(rehab|recover(y|ing)? from|tennis elbow|golfer'?s elbow|tendon|tendinitis|tendinopathy|rotator cuff|sprain|strain|pain relief|(back|knee|shoulder|elbow|wrist|hip|neck|ankle) pain|fix (your|a) (back|knee|shoulder|elbow|wrist|hip))\b/i],
+  ['Injury Prevention', /\b(warm[- ]?up|prevent|avoid(ing)? injur|injury[- ]proof|prehab|protect (your|the)|shoulder health|healthy (knees|shoulders|back|elbows?))\b/i],
   ['Fitness & Recovery', /\b(stretch|mobility|flexib|hydrat|recovery|strength|workout|exercise|gym|core|cardio|nutrition|yoga|foam roll)\b/i],
   ['Training', /\b(drill|footwork|practice|training|routine|session|consisten|match play|tactic|strategy|doubles|movement|split step)\b/i],
   ['Technique', /\b(forehand|backhand|serve|volley|slice|topspin|grip|swing|technique|return|overhead|smash|lob|drop shot|kick serve|stroke)\b/i],
@@ -145,9 +151,13 @@ async function buildVideos() {
       for (const e of parseFeed(xml)) {
         const vid = (e.raw.match(/<yt:videoId>([^<]+)</) || [])[1];
         if (!vid || /#shorts|\bshorts?\b/i.test(e.title)) continue;
-        const text = e.title + ' ' + e.desc.slice(0, 300);
         if (c.kind === 'body' && !BODY_REQUIRED.test(e.title)) continue;
-        const cat = (CATS.find(([, re]) => re.test(e.title)) || CATS.find(([, re]) => re.test(text)) || [c.kind === 'body' ? 'Fitness & Recovery' : 'Technique'])[0];
+        // Skip livestreams, promotions, gear reviews and pro-tour commentary; keep only instruction.
+        if (/\b(live|livestream|stream|book|giveaway|podcast|review|unboxing|ball machine|acemate|drama|controversy|reacts?|reaction|news|q ?& ?a)\b/i.test(e.title)) continue;
+        const hit = CATS.find(([, re]) => re.test(e.title));
+        if (!hit) continue;
+        const cat = hit[0];
+        if (PRO_RE.test(e.title) && !['Technique', 'Training'].includes(cat)) continue;
         const views = +(e.raw.match(/views="(\d+)"/) || [])[1] || 0;
         const likes = +(e.raw.match(/starRating[^>]*count="(\d+)"/) || [])[1] || 0;
         vids.push({ title: e.title, link: `https://www.youtube.com/watch?v=${vid}`, source: c.name, date: new Date(Date.parse(e.date) || Date.now()).toISOString(), cat, kind: 'Video', views, likes, thumb: `https://i.ytimg.com/vi/${vid}/hqdefault.jpg` });

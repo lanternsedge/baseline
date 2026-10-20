@@ -271,8 +271,9 @@ const evEnd = e => Date.parse(e.end + 'T23:59:59');
 const tokens = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').split(/[^a-z]+/).filter(w => w.length > 3 && !['open','tennis','championships','masters','tournament','international','presented','cup'].includes(w));
 function espnFor(ev){
   const names = new Set([...tokens(ev.name), ...tokens(ev.city), ...(ev.aliases||[]).flatMap(tokens)]);
-  return (D.espn?.events || []).find(x => x.tour === ev.tour && (!x.end || Date.parse(x.end) >= evStart(ev) - DAY) && (!x.start || Date.parse(x.start) <= evEnd(ev) + DAY)
-    && [...tokens(x.name), ...tokens(x.city)].some(w => names.has(w)));
+  return (D.espn?.events || []).filter(x => x.tour === ev.tour && (!x.end || Date.parse(x.end) >= evStart(ev) - DAY) && (!x.start || Date.parse(x.start) <= evEnd(ev) + DAY)
+    && [...tokens(x.name), ...tokens(x.city)].some(w => names.has(w)))
+    .sort((a, b) => b.matches.length - a.matches.length)[0];
 }
 function thisWeek(){
   const now = Date.now();
@@ -283,16 +284,11 @@ function upcoming(){
   return (D.cal?.events || []).filter(e => evStart(e) > now).sort((a,b) => evStart(a) - evStart(b));
 }
 function calendarDrift(){
-  // ESPN's season calendar lists an event in the next two weeks that our calendar doesn't have
-  const ours = (D.cal?.events || []);
-  const soon = Date.now() + 14*DAY;
-  for (const tour of ['ATP','WTA']) for (const x of (D.espn?.calendar?.[tour] || [])) {
-    const s = Date.parse(x.start); if (!s || s < Date.now() - DAY || s > soon) continue;
-    const tk = tokens(x.name); if (!tk.length) continue;
-    const hit = ours.some(e => e.tour === tour && Math.abs(evStart(e) - s) < 9*DAY && [...tokens(e.name), ...tokens(e.city), ...(e.aliases||[]).flatMap(tokens)].some(w => tk.includes(w)));
-    if (!hit) return x.name;
-  }
-  return null;
+  // Events the score feed is covering now that aren't in Baseline's calendar (often smaller WTA 125 or Challenger events).
+  const week = thisWeek();
+  const used = new Set(week.map(espnFor).filter(Boolean));
+  return (D.espn?.events || []).filter(x => !used.has(x) && x.matches.length && !week.some(e => e.tour === x.tour && [...tokens(e.name), ...tokens(e.city), ...(e.aliases||[]).flatMap(tokens)].some(w => tokens(x.name).includes(w))))
+    .map(x => `${x.name} (${x.tour})`);
 }
 const fmtTime = t => new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
 const fmtDate = s => new Date(s + 'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
@@ -331,7 +327,7 @@ function schedView(){
   const watch = D.lib?.watch || [];
   const evBtn = e => `<button class="event" type="button" data-ev="${esc(e.name)}" aria-pressed="${e===selEvent}"><div><span class="tag">${esc(e.category)}</span><h3 style="margin-top:6px">${esc(e.name)}</h3><span class="meta">${esc(e.city)}, ${esc(e.country)} · ${esc(e.surface)}${espnFor(e)?'':' · official page only'}</span></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`;
   return `<section class="view">
-   ${drift ? `<div class="notice">The calendar may be out of date: the score feed lists <strong>${esc(drift)}</strong>, which isn't in Baseline's calendar yet. It will be added at the next weekly check.</div>` : ''}
+   ${drift.length ? `<div class="notice">Also in the score feed this week: <strong>${drift.map(esc).join(', ')}</strong>. ${drift.length>1?'These aren\'t':'This isn\'t'} in Baseline's calendar. Usually that means a smaller event, but if a tour event is missing, the weekly calendar check will add it.</div>` : ''}
    <div class="sched">
     <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
      <div class="panel">
