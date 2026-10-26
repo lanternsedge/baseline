@@ -1,5 +1,5 @@
 {
- "lastChecked": "2026-10-20",
+ "lastChecked": "2026-10-26",
  "note": "Master list of tour-level events. Source: official ATP and WTA calendars (checked weekly). Dates are Monday-to-Sunday tournament weeks unless a longer span is known.",
  "events": [
   {"tour":"ATP","name":"Shanghai Masters","city":"Shanghai","country":"China","category":"ATP Masters 1000","surface":"Hard","start":"2026-10-01","end":"2026-10-12","aliases":["Rolex Shanghai Masters","Shanghai"]},
@@ -16,8 +16,9 @@
   {"tour":"ATP","name":"Paris Masters","city":"Paris","country":"France","category":"ATP Masters 1000","surface":"Indoor hard","start":"2026-11-02","end":"2026-11-08","aliases":["Rolex Paris Masters","Paris"]},
   {"tour":"WTA","name":"Hong Kong Open","city":"Hong Kong","country":"China","category":"WTA 250","surface":"Hard","start":"2026-11-02","end":"2026-11-08","aliases":["Hong Kong Tennis Open","Hong Kong"]},
   {"tour":"WTA","name":"Chennai Open","city":"Chennai","country":"India","category":"WTA 250","surface":"Hard","start":"2026-11-02","end":"2026-11-08","aliases":["Chennai"]},
-  {"tour":"ATP","name":"Stockholm Open","city":"Stockholm","country":"Sweden","category":"ATP 250","surface":"Indoor hard","start":"2026-11-09","end":"2026-11-15","aliases":["Stockholm","BNP Paribas Nordic Open"]},
-  {"tour":"WTA","name":"WTA Finals","city":"Indian Wells","country":"USA","category":"Year-end finals","surface":"Hard","start":"2026-11-09","end":"2026-11-15","aliases":["WTA Finals Indian Wells"]},
-  {"tour":"ATP","name":"Nitto ATP Finals","city":"Turin","country":"Italy","category":"Year-end finals","surface":"Indoor hard","start":"2026-11-15","end":"2026-11-22","aliases":["ATP Finals","Turin"]}
+  {"tour":"ATP","name":"Stockholm Open","city":"Stockholm","country":"Sweden","category":"ATP 250","surface":"Indoor hard","start":"2026-11-08","end":"2026-11-14","aliases":["Stockholm","BNP Paribas Nordic Open"]},
+  {"tour":"WTA","name":"WTA Finals","city":"Indian Wells","country":"USA","category":"Year-end finals","surface":"Hard","start":"2026-11-08","end":"2026-11-15","aliases":["WTA Finals Indian Wells"]},
+  {"tour":"ATP","name":"Nitto ATP Finals","city":"Turin","country":"Italy","category":"Year-end finals","surface":"Indoor hard","start":"2026-11-15","end":"2026-11-22","aliases":["ATP Finals","Turin"]},
+  {"tour":"ATP","name":"Davis Cup Finals","city":"Bologna","country":"Italy","category":"Team event","surface":"Indoor hard","start":"2026-11-24","end":"2026-11-29","aliases":["Davis Cup","Davis Cup Final 8","Davis Cup Final 8 Bologna","Bologna"]}
  ]
 }
