@@ -1,5 +1,5 @@
 {
- "lastChecked": "2026-11-02",
+ "lastChecked": "2026-11-09",
  "note": "Master list of tour-level events. Source: official ATP and WTA calendars (checked weekly). Dates are Monday-to-Sunday tournament weeks unless a longer span is known.",
  "events": [
   {"tour":"ATP","name":"Shanghai Masters","city":"Shanghai","country":"China","category":"ATP Masters 1000","surface":"Hard","start":"2026-10-01","end":"2026-10-12","aliases":["Rolex Shanghai Masters","Shanghai"]},
@@ -24,8 +24,12 @@
   {"tour":"WTA","name":"United Cup","city":"Perth / Sydney","country":"Australia","category":"Team event","surface":"Hard","start":"2027-01-01","end":"2027-01-10","aliases":["United Cup","Perth","Sydney"]},
   {"tour":"ATP","name":"Brisbane International","city":"Brisbane","country":"Australia","category":"ATP 250","surface":"Hard","start":"2027-01-04","end":"2027-01-10","aliases":["Brisbane International presented by ANZ","Brisbane"]},
   {"tour":"ATP","name":"Hong Kong Tennis Open","city":"Hong Kong","country":"China","category":"ATP 250","surface":"Hard","start":"2027-01-04","end":"2027-01-10","aliases":["Bank of China Hong Kong Tennis Open","Hong Kong"]},
+  {"tour":"WTA","name":"Brisbane International","city":"Brisbane","country":"Australia","category":"WTA 500","surface":"Hard","start":"2027-01-04","end":"2027-01-10","aliases":["Brisbane International presented by ANZ","Brisbane"]},
+  {"tour":"WTA","name":"ASB Classic","city":"Auckland","country":"New Zealand","category":"WTA 250","surface":"Hard","start":"2027-01-04","end":"2027-01-10","aliases":["Auckland","ASB Classic Auckland"]},
   {"tour":"ATP","name":"Adelaide International","city":"Adelaide","country":"Australia","category":"ATP 250","surface":"Hard","start":"2027-01-11","end":"2027-01-16","aliases":["Adelaide"]},
   {"tour":"ATP","name":"ASB Classic","city":"Auckland","country":"New Zealand","category":"ATP 250","surface":"Hard","start":"2027-01-11","end":"2027-01-16","aliases":["Auckland","ASB Classic Auckland"]},
+  {"tour":"WTA","name":"Adelaide International","city":"Adelaide","country":"Australia","category":"WTA 500","surface":"Hard","start":"2027-01-11","end":"2027-01-16","aliases":["Adelaide"]},
+  {"tour":"WTA","name":"Hobart International","city":"Hobart","country":"Australia","category":"WTA 250","surface":"Hard","start":"2027-01-11","end":"2027-01-16","aliases":["Hobart","Hobart International Tennis"]},
   {"tour":"ATP","name":"Australian Open","city":"Melbourne","country":"Australia","category":"Grand Slam","surface":"Hard","start":"2027-01-17","end":"2027-01-31","aliases":["Australian Open","AO","Melbourne"]},
   {"tour":"WTA","name":"Australian Open","city":"Melbourne","country":"Australia","category":"Grand Slam","surface":"Hard","start":"2027-01-17","end":"2027-01-31","aliases":["Australian Open","AO","Melbourne"]}
  ]
