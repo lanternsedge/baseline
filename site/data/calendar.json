@@ -1,8 +1,7 @@
 {
- "lastChecked": "2026-11-09",
+ "lastChecked": "2026-11-16",
  "note": "Master list of tour-level events. Source: official ATP and WTA calendars (checked weekly). Dates are Monday-to-Sunday tournament weeks unless a longer span is known.",
  "events": [
-  {"tour":"ATP","name":"Shanghai Masters","city":"Shanghai","country":"China","category":"ATP Masters 1000","surface":"Hard","start":"2026-10-01","end":"2026-10-12","aliases":["Rolex Shanghai Masters","Shanghai"]},
   {"tour":"WTA","name":"Wuhan Open","city":"Wuhan","country":"China","category":"WTA 1000","surface":"Hard","start":"2026-10-12","end":"2026-10-18","aliases":["Dongfeng Voyah Wuhan Open","Wuhan"]},
   {"tour":"ATP","name":"Almaty Open","city":"Almaty","country":"Kazakhstan","category":"ATP 250","surface":"Indoor hard","start":"2026-10-19","end":"2026-10-25","aliases":["Almaty"]},
   {"tour":"ATP","name":"European Open","city":"Brussels","country":"Belgium","category":"ATP 250","surface":"Indoor hard","start":"2026-10-19","end":"2026-10-25","aliases":["Brussels","BNP Paribas Fortis European Open"]},
